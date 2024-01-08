@@ -6,9 +6,6 @@ const password = document.querySelector('#password');
 export const url = "https://vue3-course-api.hexschool.io/";
 export const path = "berlin/";
 
-const loginAccount = "3q.berlin@gmail.com"
-const loginPassword = "tAXDRB4LBHug";
-
 const app = createApp({
     data() {
         return {
@@ -28,7 +25,7 @@ const app = createApp({
             axios.post(`${url}v2/admin/signin`, data).then((res) => {
                 const { token, expired } = res.data;
                 document.cookie = `berlinToken=${token}; expires=${new Date(expired)};`;
-                // location.href = './products.html';
+                location.href = '?products.html';
                 console.log('indexToken',token)
             }).catch((err) => {
                 console.log(err.response);
