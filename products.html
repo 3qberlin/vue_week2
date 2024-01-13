@@ -65,7 +65,7 @@
                             <span v-else>未啟用</span>
                         </td>
                         <td width="120">
-                            <button type="button" class="btn btn-primary" v-on:click="showProducts = item">查看細節</button>
+                            <button type="button" class="btn btn-primary" @click="showProducts = item">查看細節</button>
                         </td>
                     </tr>
                 </tbody>
@@ -98,11 +98,11 @@
                     <span v-for="(image, id) in showProducts.imagesUrl" :key="id">
                         <img v-if="image" :src="image" class="images m-2">
                     </span>
-                    </D>
-                    <p class="text-secondary mx-2">請選擇一個商品查看</p>
                 </div>
+                <p v-else class="text-secondary mx-2">請選擇一個商品查看</p>
             </div>
         </div>
+    </div>
     </div>
 
     <script type="module">
