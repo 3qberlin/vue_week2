@@ -78,7 +78,7 @@ const products = createApp({
                 http = 'post'
             }
 
-            axios[http](link, { data: this.data }).then((res) => {
+            axios[http](link, { data: this.tempProduct }).then((res) => {
                 alert(res.data.message);
                 productModal.hide();
                 this.getProducts();  // 取得所有產品的函式
@@ -97,7 +97,10 @@ const products = createApp({
             }).catch((err) => {
                 alert(err.response.data.message);
             })
-        }
+        }, createImages() {
+            this.tempProduct.imagesUrl = [];
+            this.tempProduct.imagesUrl.push('');
+        },
     }, mounted() {
         productModal = new bootstrap.Modal(
             document.getElementById("productModal"),
