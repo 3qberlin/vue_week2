@@ -20,20 +20,6 @@ const products = createApp({
         return {
             productsCollects: [],
             showProducts: [],
-            data: {
-                data: {
-                    title: "",
-                    category: "",
-                    origin_price: "",
-                    price: "",
-                    unit: "",
-                    description: "",
-                    content: "",
-                    is_enabled: "",
-                    imageUrl: "",
-                    imagesUrl: []
-                }
-            },
             isNew: false,
             tempProduct: {},
             url,
