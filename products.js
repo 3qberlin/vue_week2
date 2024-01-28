@@ -23,7 +23,9 @@ const products = createApp({
             isNew: false,
             tempProduct: {},
             url,
-            path
+            path,
+            products: [],
+            pagination: {}
         }
     },
     created() {
@@ -46,10 +48,13 @@ const products = createApp({
                 delProductModal.show()
             }
         },
-        getProducts() {
-            axios.get(`${url}v2/api/${path}admin/products/all`)
+        getProducts(page = 1) {
+            axios.get(`${url}v2/api/${path}admin/products?page=${page}`)
                 .then((res) => {
                     this.productsCollects = res.data.products;
+                    const { products, pagination } = res.data;
+                    this.products = products;
+                    this.pagination = pagination;
                 }).catch((err) => {
                     console.log(err.response);
                 })
@@ -87,6 +92,7 @@ const products = createApp({
             this.tempProduct.imagesUrl = [];
             this.tempProduct.imagesUrl.push('');
         },
+
     }, mounted() {
         productModal = new bootstrap.Modal(
             document.getElementById("productModal"),
@@ -103,4 +109,35 @@ const products = createApp({
             }
         );
     }
-}).mount('#products');
+})
+products.component('pagination', {
+    props: ['pages', 'getProducts'],
+    methods: {
+        changePage(num) {
+            this.$emit('changePage', num);
+        }
+    },
+    template: `
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item" :class="{'disabled': pages.current_page === 1}">
+                    <a class="page-link" href="#" aria-label="Previous"
+                        @click.prevent="changePage(pages.current_page - 1)">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li v-for="(item, index) in pages.total_pages" :key="index" class="page-item"
+                    :class="{'active': item === pages.current_page}">
+                    <a class="page-link" href="#" @click.prevent="getProducts(item)">{{ item }}</a>
+                </li>
+                <li class="page-item" :class="{'disabled': pages.current_page === 1}">
+                    <a class="page-link" href="#" aria-label="Next"
+                        @click.prevent="changePage(pages.current_page + 1)">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    `,
+});
+products.mount('#products');
