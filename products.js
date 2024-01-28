@@ -1,6 +1,7 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.5/vue.esm-browser.min.js';
 
 import { url, path } from './index.js';
+import pModal from './pModal.js'
 
 function getCookie(name) {
     const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
@@ -12,8 +13,8 @@ if (!token) {
     window.location.href = './index.html';
 }
 
-let productModal = null;
-let delProductModal = null;
+// let productModal = null;
+// let delProductModal = null;
 
 const products = createApp({
     data() {
@@ -38,11 +39,11 @@ const products = createApp({
             if (status === 'new') {
                 this.tempProduct = {};
                 this.isNew = true;
-                productModal.show();
+                this.$refs.applyModal.openModal() // 找 refs 的 applyModal 再去開啟 元件內的 函式（openModal()）
             } else if (status === 'edit') {
                 this.tempProduct = { ...item };
                 this.isNew = false;
-                productModal.show();
+                this.$refs.applyModal.openModal() // 套用到 edit
             } else if (status === 'delete') {
                 this.tempProduct = { ...item };
                 delProductModal.show()
@@ -71,7 +72,7 @@ const products = createApp({
 
             axios[http](link, { data: this.tempProduct }).then((res) => {
                 alert(res.data.message);
-                productModal.hide();
+                this.$refs.applyModal.closeModal(); // 關閉
                 this.getProducts();  // 取得所有產品的函式
             }).catch((err) => {
                 console.log('http', this.tempProduct);
@@ -94,13 +95,13 @@ const products = createApp({
         },
 
     }, mounted() {
-        productModal = new bootstrap.Modal(
-            document.getElementById("productModal"),
-            {
-                keyboard: false,
-                backdrop: 'static'
-            }
-        );
+        // productModal = new bootstrap.Modal(
+        //     document.getElementById("productModal"),
+        //     {
+        //         keyboard: false,
+        //         backdrop: 'static'
+        //     }
+        // );
         delProductModal = new bootstrap.Modal(
             document.getElementById("delProductModal"),
             {
@@ -108,6 +109,9 @@ const products = createApp({
                 backdrop: 'static'
             }
         );
+    },
+    components: {
+        pModal
     }
 })
 products.component('pagination', {
