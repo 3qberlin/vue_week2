@@ -2,6 +2,7 @@ import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.5/vue.
 
 import { url, path } from './index.js';
 import pModal from './pModal.js'
+import delModal from './delModal.js'
 
 function getCookie(name) {
     const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
@@ -46,7 +47,9 @@ const products = createApp({
                 this.$refs.applyModal.openModal() // 套用到 edit
             } else if (status === 'delete') {
                 this.tempProduct = { ...item };
-                delProductModal.show()
+                // this.$refs.delModalX.openModal()
+                alert('this new one');
+                this.$refs.delTarget.openModal();  // 這裡不能運作
             }
         },
         getProducts(page = 1) {
@@ -84,34 +87,19 @@ const products = createApp({
 
             axios.delete(link).then((res) => {
                 alert(res.data.message);
-                delProductModal.hide();
-                this.getProducts();  // 更新資料後，重新取得所有產品的函式
+                this.$refs.newOne.delClose(); // 這裡不能運作
+                this.getProducts(); 
             }).catch((err) => {
                 alert(err.response.data.message);
             })
-        }, createImages() {
-            this.tempProduct.imagesUrl = [];
-            this.tempProduct.imagesUrl.push('');
-        },
+        }
+        
 
     }, mounted() {
-        // productModal = new bootstrap.Modal(
-        //     document.getElementById("productModal"),
-        //     {
-        //         keyboard: false,
-        //         backdrop: 'static'
-        //     }
-        // );
-        delProductModal = new bootstrap.Modal(
-            document.getElementById("delProductModal"),
-            {
-                keyboard: false,
-                backdrop: 'static'
-            }
-        );
     },
     components: {
-        pModal
+        pModal,
+        delModal
     }
 })
 products.component('pagination', {

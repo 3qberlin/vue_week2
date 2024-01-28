@@ -126,7 +126,7 @@ export default {
     data() {
         return {
             productModal: null,
-            delProductModal : null
+            isNew: false,
         }
     },
     mounted() {
@@ -138,6 +138,13 @@ export default {
         },
         closeModal() {
             this.productModal.hide()
+        },
+        createImages() {
+            this.tempProduct.imagesUrl = [];
+            this.tempProduct.imagesUrl.push('');
+        },
+        delOpen(){
+            alert('this');
         }
     }
 

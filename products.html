@@ -238,7 +238,7 @@
             <p-modal :temp-product="tempProduct" :update-product="updateProduct" ref="applyModal"></p-modal>
     </div>
 
-    <div id="delProductModal" ref="delProductModal" class="modal fade" tabindex="-1"
+    <!-- <div id="delProductModal" ref="delProductModal" class="modal fade" tabindex="-1"
         aria-labelledby="delProductModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content border-0">
@@ -262,9 +262,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- Modal -->
-    </div>
+    <del-modal :temp-product="tempProduct" :del-product="delProduct" ref="delTarget"></del-modal>
+    <!-- </div> -->
     </div>
 </body>
 <script type="module">
