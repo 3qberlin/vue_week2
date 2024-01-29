@@ -47,8 +47,6 @@ const products = createApp({
                 this.$refs.applyModal.openModal() // 套用到 edit
             } else if (status === 'delete') {
                 this.tempProduct = { ...item };
-                // this.$refs.delModalX.openModal()
-                alert('this new one');
                 this.$refs.delTarget.openModal();  // 這裡不能運作
             }
         },
@@ -87,7 +85,7 @@ const products = createApp({
 
             axios.delete(link).then((res) => {
                 alert(res.data.message);
-                this.$refs.newOne.delClose(); // 這裡不能運作
+                this.$refs.delTarget.closeModal(); // 這裡不能運作
                 this.getProducts(); 
             }).catch((err) => {
                 alert(err.response.data.message);
@@ -112,7 +110,7 @@ products.component('pagination', {
     template: `
         <nav aria-label="Page navigation">
             <ul class="pagination">
-                <li class="page-item" :class="{'disabled': pages.current_page === 1}">
+                <li class="page-item" :class="{'disabled': !pages.has_pre}">
                     <a class="page-link" href="#" aria-label="Previous"
                         @click.prevent="changePage(pages.current_page - 1)">
                         <span aria-hidden="true">&laquo;</span>
@@ -122,7 +120,7 @@ products.component('pagination', {
                     :class="{'active': item === pages.current_page}">
                     <a class="page-link" href="#" @click.prevent="getProducts(item)">{{ item }}</a>
                 </li>
-                <li class="page-item" :class="{'disabled': pages.current_page === 1}">
+                <li class="page-item" :class="{'disabled': !pages.has_next}">
                     <a class="page-link" href="#" aria-label="Next"
                         @click.prevent="changePage(pages.current_page + 1)">
                         <span aria-hidden="true">&raquo;</span>
