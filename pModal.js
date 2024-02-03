@@ -1,5 +1,5 @@
 export default {
-    props: ['tempProduct', 'updateProduct'],
+    props: ['tempProduct', 'updateProduct','isNew'],
     template: `
     <div id="productModal" ref="productModal" class="modal fade" tabindex="-1"
     aria-labelledby="productModalLabel" aria-hidden="true">
@@ -126,15 +126,14 @@ export default {
     data() {
         return {
             productModal: null,
-            isNew: false,
         }
     },
     mounted() {
         this.productModal = new bootstrap.Modal(this.$refs.productModal);
     },
     methods: {
-        openModal() {
-            this.productModal.show()
+        openModal(status) {
+            this.productModal.show();
         },
         closeModal() {
             this.productModal.hide()

@@ -94,7 +94,7 @@
                 <pagination :pages="pagination" :get-products="getProducts"  @change-page="getProducts"></pagination>
             </div>
             <!-- Modal -->
-            <p-modal :temp-product="tempProduct" :update-product="updateProduct" ref="applyModal"></p-modal>
+            <p-modal :temp-product="tempProduct" :update-product="updateProduct" ref="applyModal" :is-new="isNew"></p-modal>
         </div>
 
         <!-- Modal -->
