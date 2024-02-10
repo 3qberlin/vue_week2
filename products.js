@@ -1,8 +1,8 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.5/vue.esm-browser.min.js';
 
-import { url, path } from './index.js';
-import pModal from './pModal.js'
-import delModal from './delModal.js'
+import delModal from './delModal.js';
+import { path, url } from './index.js';
+import pModal from './pModal.js';
 
 function getCookie(name) {
     const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
